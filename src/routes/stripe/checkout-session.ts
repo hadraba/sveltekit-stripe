@@ -1,7 +1,7 @@
 import type { Request, Response } from '@sveltejs/kit';
 import stripe from './_stripe';
 
-export async function post(req: Request<any, { priceId: string }>): Promise<Response> {
+export async function post(req: Request<any, { priceId: string, shirtId: string }>): Promise<Response> {
 	if (typeof req.body.priceId !== 'string') {
 		return {
 			status: 400,
@@ -15,10 +15,11 @@ export async function post(req: Request<any, { priceId: string }>): Promise<Resp
 	}
 
 	const priceId = req.body.priceId;
-
+	const shirtId = req.body.shirtId;
+	console.log(priceId, shirtId)
 	try {
 		const session = await stripe.checkout.sessions.create({
-			mode: 'subscription',
+			mode: 'payment',
 			payment_method_types: ['card'],
 			line_items: [
 				{
@@ -26,8 +27,16 @@ export async function post(req: Request<any, { priceId: string }>): Promise<Resp
 					quantity: 1
 				}
 			],
-			success_url: `http://${req.host}/counter?sessionId={CHECKOUT_SESSION_ID}`,
-			cancel_url: `http://${req.host}/`
+			shipping_address_collection: {
+				allowed_countries: ['CZ']
+			},
+			payment_intent_data: {
+				metadata: {
+					shirt: shirtId,
+				},
+			},
+			success_url: `http://${req.host}/success?sessionId={CHECKOUT_SESSION_ID}`,
+			cancel_url: `http://${req.host}/generate`
 		});
 		return {
 			status: 200,
