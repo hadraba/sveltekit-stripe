@@ -5,7 +5,7 @@
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
 		"start": "svelte-kit start",
-		"stripe:init": "node scripts/createProductsOnStripe.js",
+		"preview": "svelte-kit preview",
 		"format": "prettier --write ."
 	},
 	"devDependencies": {

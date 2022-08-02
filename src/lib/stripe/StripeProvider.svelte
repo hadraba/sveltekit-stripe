@@ -10,9 +10,6 @@
 		throw new Error('VITE_STRIPE_PUBLIC_KEY must be added to .env');
 	}
 
-	// ID of the connected stripe account
-	export let stripeAccount: string | undefined = undefined;
-
 	let stripe: Stripe | null;
 
 	setContext(key, {
