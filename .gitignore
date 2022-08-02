@@ -3,6 +3,5 @@ node_modules
 .env
 /build
 /functions
-/src/routes/plansData.json
 .netlify
 /.svelte-kit
