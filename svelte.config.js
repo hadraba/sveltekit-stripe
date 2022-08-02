@@ -19,11 +19,6 @@ const config = {
 			pages: ['*'],
 		  },		    
 	},
-	preprocess: [
-		preprocess({
-		  postcss: true,
-		}),
-	  ],
 };
 
 export default config;
