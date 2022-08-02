@@ -10,8 +10,20 @@ const config = {
 		// By default, `npm run build` will create a standard Node app.
 		// You can create optimized builds for different platforms by
 		// specifying a different adapter
-		adapter: adapter()
-	}
+		target: '#svelte',
+		adapter: adapter(),
+		prerender: {
+			crawl: true,
+			enabled: true,
+			onError: 'continue',
+			pages: ['*'],
+		  },		    
+	},
+	preprocess: [
+		preprocess({
+		  postcss: true,
+		}),
+	  ],
 };
 
 export default config;
